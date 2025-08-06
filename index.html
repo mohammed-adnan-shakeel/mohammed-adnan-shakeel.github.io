@@ -465,24 +465,27 @@
         const counterElement = document.getElementById("visitor-count");
 
         // Configuration
-        const WEBSITE_ID = "8b3ce781-d545-4fa6-84d0-17201616071a"; // Your Umami website ID
+        const WEBSITE_ID = "8b3ce781-d545-4fa6-84d0-17201616071a"; // Replace with your actual website ID
         const SHARE_TOKEN =
           "297uwkcbH3VKQ7a5MRrtJ1xMaozfsVRLYQMJE93WoFiBFPobky+9OG+Ay8ZJ1hK+r8ZOM+NQ3DKWpd7fCO8rCzu71Krci5CMeq3AltaoPTP4XrPhnlquO/oxTH5Dbeb6gM4vl5HXt0Nk8DR2BxkN7/LY8i8dCzHtNl1oWop7cvx6O0ouygMed+1uuQJ9cFui3ngdTHU0n9umHTjr+xYSbKKxUv47aKoR22C6JhJXR02ZoI8ExPw9jZTRPa2xfaGeO30hASifbQmrdKkxWMPa7qJFtoj0Kw2OLiJ/vGSzEoXgJ2hE8tP9+EEZ1z00UlrMdNBPdnbGx4i2xNJ7cYA0NU6tXI+HFAGRmmVdNiRy1Ah0GjTZWd9mN2MuDoFL";
         const UMAMI_URL = "https://umami-mas.vercel.app";
-        const API_URL = `${UMAMI_URL}/api/websites/${WEBSITE_ID}/stats?token=${SHARE_TOKEN}`;
+
+        // Time range: last 30 days
+        const endAt = Date.now();
+        const startAt = endAt - 30 * 24 * 60 * 60 * 1000;
+
+        const API_URL = `${UMAMI_URL}/api/websites/${WEBSITE_ID}/stats?startAt=${startAt}&endAt=${endAt}&token=${SHARE_TOKEN}`;
 
         // Cache settings
         const CACHE_KEY = "umamiVisitorCache";
         const CACHE_TTL = 300000; // 5 minutes
 
-        // Fetch visitor data
         async function fetchVisitorData() {
           try {
             const response = await fetch(API_URL);
             if (!response.ok) throw new Error("API request failed");
             const data = await response.json();
-
-            console.log("Visitor data response:", data); // Debugging aid
+            console.log("Visitor data response:", data);
             return data;
           } catch (error) {
             console.error("Error fetching visitor data:", error);
@@ -490,7 +493,6 @@
           }
         }
 
-        // Update counter UI
         function updateCounterUI(count) {
           if (!counterElement) return;
 
@@ -502,7 +504,6 @@
           }
         }
 
-        // Use cached data
         function getCachedData() {
           try {
             const cache = localStorage.getItem(CACHE_KEY);
@@ -518,7 +519,6 @@
           }
         }
 
-        // Save to cache
         function cacheData(count) {
           const cache = {
             timestamp: Date.now(),
@@ -527,7 +527,6 @@
           localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
         }
 
-        // Counter logic
         async function updateCounter() {
           const cachedCount = getCachedData();
           if (cachedCount !== null) {
@@ -551,6 +550,7 @@
         updateCounter();
         setInterval(updateCounter, CACHE_TTL);
       });
+      
     </script>
     <script 
     async 
@@ -560,6 +560,7 @@
   ></script>
   </body>
 </html>
+
 
 
 
