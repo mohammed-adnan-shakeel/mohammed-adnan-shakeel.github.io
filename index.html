@@ -480,6 +480,83 @@
           });
         });
       });
+
+      // UMAMI VISITOR COUNTER - OPTIMIZED IMPLEMENTATION
+      document.addEventListener("DOMContentLoaded", function () {
+        const counterElement = document.getElementById("visitor-count");
+        const COUNTER_API_URL =
+          "https://umami-mas.vercel.app/api/websites/YOUR_WEBSITE_UUID/stats";
+        const CACHE_KEY = "umamiVisitorCache";
+        const CACHE_TTL = 300000; // 5 minutes in ms
+
+        // 1. Try to load cached data first
+        const cachedData = getCachedData();
+        if (cachedData) {
+          updateCounterUI(cachedData.pageviews);
+        }
+
+        // 2. Fetch fresh data (with cache fallback)
+        fetchVisitorData()
+          .then((data) => {
+            updateCounterUI(data.pageviews);
+            cacheData(data);
+          })
+          .catch((error) => {
+            console.error("Umami fetch failed:", error);
+            if (!cachedData) {
+              counterElement.textContent = "Visitors";
+            }
+          });
+
+        // 3. Set up periodic refresh
+        setInterval(fetchVisitorDataAndUpdate, CACHE_TTL);
+
+        // ========== HELPER FUNCTIONS ========== //
+
+        async function fetchVisitorData() {
+          const response = await fetch(COUNTER_API_URL);
+          if (!response.ok)
+            throw new Error(`HTTP error! status: ${response.status}`);
+          return await response.json();
+        }
+
+        async function fetchVisitorDataAndUpdate() {
+          try {
+            const data = await fetchVisitorData();
+            updateCounterUI(data.pageviews);
+            cacheData(data);
+          } catch (error) {
+            console.warn("Background refresh failed:", error);
+          }
+        }
+
+        function updateCounterUI(count) {
+          counterElement.textContent = formatNumber(count) + " visitors";
+        }
+
+        function formatNumber(num) {
+          return new Intl.NumberFormat("en-US").format(num);
+        }
+
+        function cacheData(data) {
+          const cache = {
+            timestamp: Date.now(),
+            data: data,
+          };
+          localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+        }
+
+        function getCachedData() {
+          const cache = localStorage.getItem(CACHE_KEY);
+          if (!cache) return null;
+
+          const { timestamp, data } = JSON.parse(cache);
+          const age = Date.now() - timestamp;
+
+          return age < CACHE_TTL ? data : null;
+        }
+      });
     </script>
   </body>
 </html>
+
