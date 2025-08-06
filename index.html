@@ -540,12 +540,17 @@
           </div>
 
           <!-- Visitor Counter -->
-          <div class="umami-counter">
+          <div
+            class="visitor-counter"
+            style="display: flex; align-items: center; gap: 8px"
+          >
             <svg
               class="counter-icon"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
+              width="20"
+              height="20"
             >
               <path
                 stroke-linecap="round"
@@ -558,7 +563,7 @@
                 stroke-linejoin="round"
                 stroke-width="2"
                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 
-          4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+      4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
               />
             </svg>
             <span id="visitor-count">Loading visitors...</span>
@@ -573,12 +578,12 @@
     </footer>
 
     <script>
-      // Set current year in footer
-      document.getElementById("currentYear").textContent =
-        new Date().getFullYear();
-
       document.addEventListener("DOMContentLoaded", function () {
-        // Mobile Navigation Toggle
+        // Set current year in footer
+        document.getElementById("currentYear").textContent =
+          new Date().getFullYear();
+
+        // Mobile nav toggle
         const hamburger = document.getElementById("hamburger");
         const navLinks = document.querySelector(".nav-links");
 
@@ -592,7 +597,7 @@
             }
           });
 
-          // Close mobile menu when clicking on a link
+          // Close menu on nav link click
           document.querySelectorAll(".nav-links a").forEach((link) => {
             link.addEventListener("click", () => {
               navLinks.classList.remove("active");
@@ -605,7 +610,7 @@
           });
         }
 
-        // Smooth scrolling for anchor links
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
           anchor.addEventListener("click", function (e) {
             e.preventDefault();
@@ -619,19 +624,17 @@
           });
         });
 
-        // ✅ Visitor Counter
+        // ✅ Visitor Counter using CountAPI
         const counterElement = document.getElementById("visitor-count");
 
         async function fetchVisitorCount() {
           try {
             counterElement.textContent = "Loading visitors...";
             const res = await fetch(
-              "https://umami-proxy-mas.vercel.app/api/visitor-count"
+              "https://api.countapi.xyz/hit/mohammed-adnan-shakeel.github.io/visits"
             );
-            if (!res.ok) throw new Error("Fetch failed");
             const data = await res.json();
-            counterElement.textContent =
-              data.visitors.toLocaleString() + " visitors";
+            counterElement.textContent = data.value + " visitors";
           } catch (err) {
             console.error("Visitor count error:", err);
             counterElement.textContent = "Visitor data unavailable";
@@ -640,7 +643,7 @@
 
         fetchVisitorCount();
 
-        // Contact form submission tracking
+        // Contact form tracking (optional)
         document
           .getElementById("contactForm")
           ?.addEventListener("submit", function () {
@@ -652,4 +655,5 @@
     </script>
   </body>
 </html>
+
 
