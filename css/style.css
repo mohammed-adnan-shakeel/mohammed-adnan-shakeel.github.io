@@ -292,7 +292,7 @@ section {
 
 .project-img {
   height: 200px;
-  background-image: url("../assets/Feedback.jpg");
+  background-image: url("../assets/project/Feedback.jpg");
   background-size: cover; 
   background-position: center; 
   background-repeat: no-repeat;
@@ -576,11 +576,11 @@ footer {
   }
 
   .profile-content {
-    flex-direction: column; /* Stack vertically on smaller screens */
+    flex-direction: column; 
   }
 
   .profile-image {
-    order: 1; /* Show image first on mobile */
+    order: 1; 
   }
 
   .profile-text {
@@ -615,7 +615,7 @@ footer {
 /* Other Components - Nav, Cards, Projects, etc. */
 @media (max-width: 768px) {
   .container {
-    flex-direction: row; /* Adjust if needed */
+    flex-direction: row; 
   }
 
   .hamburger {
@@ -652,7 +652,7 @@ footer {
   }
 
   .about-content {
-    grid-template-columns: 1fr; /* Stack content vertically */
+    grid-template-columns: 1fr; 
     text-align: center;
   }
 
@@ -663,7 +663,7 @@ footer {
   }
 
   .skills-list {
-    grid-template-columns: 1fr; /* Stack skill items vertically */
+    grid-template-columns: 1fr; 
     justify-items: left;
   }
 
@@ -680,6 +680,7 @@ footer {
     gap: 1rem;
   }
 }
+
 
 
 
