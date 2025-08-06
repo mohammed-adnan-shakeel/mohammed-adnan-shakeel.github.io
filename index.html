@@ -619,14 +619,13 @@
           });
         });
 
-        // ✅ Enhanced Visitor Counter Implementation – Updated
         const counterElement = document.getElementById("visitor-count");
         if (counterElement) {
-          const SHARE_TOKEN = "r4q43H5GVOjVOW3u";
-          const SITE_SLUG = "mohammed-adnan-shakeel.github.io"; // 🆕 Added
-          const UMAMI_URL = "https://umami-mas.vercel.app";
+          const websiteId = "8b3ce781-d545-4fa6-84d0-17201616071a";
+          const token = "r4q43H5GVOjVOW3u";
+          const UMAMI_API = "https://umami-mas.vercel.app/api/websites";
           const CACHE_KEY = "umamiVisitorCache";
-          const CACHE_TTL = 300000; // 5 minutes in ms
+          const CACHE_TTL = 300000;
 
           function updateCounterUI(count, state = "loaded") {
             counterElement.className = state;
@@ -643,15 +642,15 @@
           async function fetchVisitorData() {
             try {
               updateCounterUI(null, "loading");
-              const response = await fetch(
-                `${UMAMI_URL}/share/${SHARE_TOKEN}/${SITE_SLUG}.json`
-              );
-
-              if (!response.ok)
-                throw new Error(`API error: ${response.status}`);
+              const response = await fetch(`${UMAMI_API}/${websiteId}/stats`, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              });
+              if (!response.ok) throw new Error("API error");
               return await response.json();
-            } catch (error) {
-              console.error("Error fetching visitor data:", error);
+            } catch (err) {
+              console.error("Error fetching visitor data:", err);
               return null;
             }
           }
@@ -667,23 +666,18 @@
             const cachedCount = getCachedData();
             if (cachedCount !== null) updateCounterUI(cachedCount);
 
-            try {
-              const data = await fetchVisitorData();
-              if (data?.pageviews?.value !== undefined) {
-                localStorage.setItem(
-                  CACHE_KEY,
-                  JSON.stringify({
-                    timestamp: Date.now(),
-                    count: data.pageviews.value,
-                  })
-                );
-                updateCounterUI(data.pageviews.value);
-              } else if (cachedCount === null) {
-                updateCounterUI(null, "error");
-              }
-            } catch (error) {
-              console.error("Failed to update counter:", error);
-              if (cachedCount === null) updateCounterUI(null, "error");
+            const data = await fetchVisitorData();
+            if (data?.pageviews?.value !== undefined) {
+              localStorage.setItem(
+                CACHE_KEY,
+                JSON.stringify({
+                  timestamp: Date.now(),
+                  count: data.pageviews.value,
+                })
+              );
+              updateCounterUI(data.pageviews.value);
+            } else if (cachedCount === null) {
+              updateCounterUI(null, "error");
             }
           }
 
@@ -703,4 +697,3 @@
     </script>
   </body>
 </html>
-
