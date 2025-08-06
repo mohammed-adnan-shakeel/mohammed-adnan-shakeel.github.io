@@ -485,29 +485,30 @@
         const WEBSITE_ID = "8b3ce781-d545-4fa6-84d0-17201616071a"; // Your Umami website UUID
         const SHARE_TOKEN = "r4q43H5GVOjVOW3u"; // Your share token
         const UMAMI_URL = "https://umami-mas.vercel.app"; // Your Umami instance URL
-        
+
         // Encode the token properly
         const encodedToken = encodeURIComponent(SHARE_TOKEN);
-        
-        // API endpoint with share token
-        const API_URL = `${UMAMI_URL}/api/websites/${WEBSITE_ID}/stats?token=${encodedToken}`;
-        
-        // Cache variables
-        const CACHE_KEY = "umamiVisitorCache";
-        const CACHE_TTL = 300000; // 5 minutes in ms
-        
+
+        // Define time range (last 24 hours)
+        const now = Math.floor(Date.now() / 1000);
+        const yesterday = now - 86400;
+
+        // API endpoint with required parameters
+        const API_URL = `${UMAMI_URL}/api/websites/${WEBSITE_ID}/stats?startAt=${yesterday}&endAt=${now}&token=${encodedToken}`;
+
         // Fetch visitor data
         async function fetchVisitorData() {
-          try {
-            const response = await fetch(API_URL);
-            if (!response.ok) throw new Error(`API error: ${response.status}`);
-            const data = await response.json();
-            return data;
-          } catch (error) {
-            console.error("Error fetching visitor data:", error);
-            return null;
-          }
+        try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error(`API error: ${response.status}`);
+        const data = await response.json();
+        return data;
+        } catch (error) {
+        console.error("Error fetching visitor data:", error);
+        return null;
         }
+      }
+
         
         // Update counter display
         function updateCounterUI(count) {
@@ -566,3 +567,4 @@
     </script>
   </body>
 </html>
+
