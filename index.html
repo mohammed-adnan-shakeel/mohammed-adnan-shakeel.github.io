@@ -540,34 +540,16 @@
           </div>
 
           <!-- Visitor Counter -->
-          <div
-            class="visitor-counter"
-            style="display: flex; align-items: center; gap: 8px"
-          >
-            <svg
-              class="counter-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              width="20"
-              height="20"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 
-      4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-              />
-            </svg>
-            <span id="visitor-count">Loading visitors...</span>
-          </div>
+<div class="visitor-counter" style="display: flex; align-items: center; gap: 8px;">
+  <svg class="counter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 
+      4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+  </svg>
+  <span id="visitor-count">Loading visitors...</span>
+</div>
 
           <p class="copyright">
             © <span id="currentYear"></span> Mohammed Adnan Shakeel. All rights
@@ -625,23 +607,25 @@
         });
 
         // ✅ Visitor Counter using CountAPI
-        const counterElement = document.getElementById("visitor-count");
+        document.addEventListener("DOMContentLoaded", function () {
+    const counterElement = document.getElementById("visitor-count");
 
-        async function fetchVisitorCount() {
-          try {
-            counterElement.textContent = "Loading visitors...";
-            const res = await fetch(
-              "https://api.countapi.xyz/hit/mohammed-adnan-shakeel.github.io/visits"
-            );
-            const data = await res.json();
-            counterElement.textContent = data.value + " visitors";
-          } catch (err) {
-            console.error("Visitor count error:", err);
-            counterElement.textContent = "Visitor data unavailable";
-          }
-        }
+    async function fetchVisitorCount() {
+      try {
+        counterElement.textContent = "Loading visitors...";
+        const response = await fetch("https://api.countapi.xyz/hit/mohammed-adnan-shakeel.github.io/visits");
 
-        fetchVisitorCount();
+        if (!response.ok) throw new Error("Failed to fetch");
+
+        const data = await response.json();
+        counterElement.textContent = data.value.toLocaleString() + " visitors";
+      } catch (err) {
+        console.error("Visitor count error:", err);
+        counterElement.textContent = "Visitor data unavailable";
+      }
+    }
+
+    fetchVisitorCount();
 
         // Contact form tracking (optional)
         document
@@ -655,5 +639,6 @@
     </script>
   </body>
 </html>
+
 
 
