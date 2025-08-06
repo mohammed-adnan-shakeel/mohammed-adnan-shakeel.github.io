@@ -619,75 +619,34 @@
           });
         });
 
-        document.addEventListener("DOMContentLoaded", () => {
-          const counterElement = document.getElementById("visitor-count");
-          const websiteId = "8b3ce781-d545-4fa6-84d0-17201616071a";
-          const token = "r4q43H5GVOjVOW3u";
-          const umamiUrl = "https://umami-mas.vercel.app";
-          const cacheKey = "umamiVisitorCache";
-          const cacheTTL = 300000;
+        // ✅ Visitor Counter using backend proxy (umami-proxy-mas)
+        const counterElement = document.getElementById("visitor-count");
 
-          function updateCounterUI(count, state = "loaded") {
-            counterElement.className = state;
-            counterElement.textContent =
-              state === "loading"
-                ? "Loading visitors..."
-                : state === "error"
-                ? "Visitor data unavailable"
-                : new Intl.NumberFormat().format(count) + " visitors";
-          }
+        async function fetchVisitorCount() {
+          try {
+            counterElement.textContent = "Loading visitors...";
 
-          async function fetchVisitorData() {
-            try {
-              updateCounterUI(null, "loading");
+            const res = await fetch(
+              "https://umami-proxy-mas.vercel.app/api/visitor-count"
+            );
 
-              const now = Date.now();
-              const thirtyDaysAgo = now - 30 * 24 * 60 * 60 * 1000;
+            if (!res.ok) throw new Error("Fetch failed");
 
-              const url = `${umamiUrl}/api/websites/${websiteId}/stats?startAt=${thirtyDaysAgo}&endAt=${now}`;
+            const data = await res.json();
 
-              const res = await fetch(url, {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              });
-
-              if (!res.ok) throw new Error("API error");
-
-              const data = await res.json();
-              return data?.pageviews?.value ?? null;
-            } catch (err) {
-              console.error("Error fetching visitor data:", err);
-              return null;
+            if (data?.visitors !== undefined) {
+              counterElement.textContent =
+                data.visitors.toLocaleString() + " visitors";
+            } else {
+              counterElement.textContent = "Visitor data unavailable";
             }
+          } catch (err) {
+            console.error("Visitor count error:", err);
+            counterElement.textContent = "Visitor data unavailable";
           }
+        }
 
-          function getCachedCount() {
-            const cache = localStorage.getItem(cacheKey);
-            if (!cache) return null;
-            const { timestamp, count } = JSON.parse(cache);
-            return Date.now() - timestamp < cacheTTL ? count : null;
-          }
-
-          async function updateVisitorCount() {
-            const cached = getCachedCount();
-            if (cached !== null) updateCounterUI(cached);
-
-            const liveCount = await fetchVisitorData();
-            if (liveCount !== null) {
-              localStorage.setItem(
-                cacheKey,
-                JSON.stringify({ timestamp: Date.now(), count: liveCount })
-              );
-              updateCounterUI(liveCount);
-            } else if (cached === null) {
-              updateCounterUI(null, "error");
-            }
-          }
-
-          updateVisitorCount();
-          setInterval(updateVisitorCount, cacheTTL);
-        });
+        fetchVisitorCount();
 
         // Contact form submission tracking
         document
@@ -701,3 +660,4 @@
     </script>
   </body>
 </html>
+
