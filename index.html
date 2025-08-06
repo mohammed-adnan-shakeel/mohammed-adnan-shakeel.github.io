@@ -485,6 +485,9 @@
         const websiteId = "8b3ce781-d545-4fa6-84d0-17201616071a"; // Your Umami website UUID
         const token = "r4q43H5GVOjVOW3u"; // Your share token
         const encodedToken = encodeURIComponent(token);
+        const CACHE_KEY = "visitor_data";
+        const CACHE_TTL = 60 * 1000; // 1 minute
+
 
         const now = Math.floor(Date.now() / 1000);
         const yesterday = now - 86400;
@@ -513,25 +516,24 @@
               ? new Intl.NumberFormat().format(count) + " visitors" 
               : "Visitors";
         }
-        
-        // Get cached data
+      
         function getCachedData() {
-          const cache = localStorage.getItem(CACHE_KEY);
-          if (!cache) return null;
-          
-          const { timestamp, count } = JSON.parse(cache);
-          const age = Date.now() - timestamp;
-          
-          return age < CACHE_TTL ? count : null;
+          const cached = localStorage.getItem(CACHE_KEY);
+          if (!cached) return null;
+
+          const { timestamp, data } = JSON.parse(cached);
+          const now = Date.now();
+
+          if (now - timestamp > CACHE_TTL) return null;
+          return data;
         }
-        
-        // Cache the data
-        function cacheData(count) {
-          const cache = {
+
+        function setCachedData(data) {
+          const payload = {
             timestamp: Date.now(),
-            count: count
+            data,
           };
-          localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+          localStorage.setItem(CACHE_KEY, JSON.stringify(payload));
         }
         
         // Main function to update counter
@@ -562,5 +564,6 @@
     </script>
   </body>
 </html>
+
 
 
