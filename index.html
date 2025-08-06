@@ -480,21 +480,23 @@
       document.addEventListener("DOMContentLoaded", function () {
         const counterElement = document.getElementById("visitor-count");
 
-        // Configuration (Replace if needed)
-        const websiteId = '8b3ce781-d545-4fa6-84d0-17201616071a';
-        const rawToken = '297uwkcbH3VKQ7a5MRrtJ1xMaozfsVRLYQMJE93WoFiBFPobky+9OG+Ay8ZJ1hK+r8ZOM+NQ3DKWpd7fCO8rCzu71Krci5CMeq3AltaoPTP4XrPhnlquO/oxTH5Dbeb6gM4vl5HXt0Nk8DR2BxkN7/LY8i8dCzHtNl1oWop7cvx6O0ouygMed+1uuQJ9cFui3ngdTHU0n9umHTjr+xYSbKKxUv47aKoR22C6JhJXR02ZoI8ExPw9jZTRPa2xfaGeO30hASifbQmrdKkxWMPa7qJFtoj0Kw2OLiJ/vGSzEoXgJ2hE8tP9+EEZ1z00UlrMdNBPdnbGx4i2xNJ7cYA0NU6tXI+HFAGRmmVdNiRy1Ah0GjTZWd9mN2MuDoFL';
-
+        // ✅ Configuration
+        const websiteId = "8b3ce781-d545-4fa6-84d0-17201616071a";
+        const rawToken =
+          "297uwkcbH3VKQ7a5MRrtJ1xMaozfsVRLYQMJE93WoFiBFPobky+9OG+Ay8ZJ1hK+r8ZOM+NQ3DKWpd7fCO8rCzu71Krci5CMeq3AltaoPTP4XrPhnlquO/oxTH5Dbeb6gM4vl5HXt0Nk8DR2BxkN7/LY8i8dCzHtNl1oWop7cvx6O0ouygMed+1uuQJ9cFui3ngdTHU0n9umHTjr+xYSbKKxUv47aKoR22C6JhJXR02ZoI8ExPw9jZTRPa2xfaGeO30hASifbQmrdKkxWMPa7qJFtoj0Kw2OLiJ/vGSzEoXgJ2hE8tP9+EEZ1z00UlrMdNBPdnbGx4i2xNJ7cYA0NU6tXI+HFAGRmmVdNiRy1Ah0GjTZWd9mN2MuDoFL";
         const encodedToken = encodeURIComponent(rawToken);
-        const startAt = YOUR_START_DATE;  
-        const endAt = YOUR_END_DATE;      
+
+        // ✅ Time range: last 30 days
+        const endAt = Date.now();
+        const startAt = endAt - 30 * 24 * 60 * 60 * 1000; // 30 days ago
 
         const API_URL = `https://umami-mas.vercel.app/api/websites/${websiteId}/stats?startAt=${startAt}&endAt=${endAt}&token=${encodedToken}`;
 
-        // Cache setup
+        // ✅ Cache setup
         const CACHE_KEY = "umamiVisitorCache";
         const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
-        // Fetch data from Umami API
+        // ✅ Fetch data from Umami API
         async function fetchVisitorData() {
           try {
             const response = await fetch(API_URL);
@@ -508,7 +510,7 @@
           }
         }
 
-        // Update UI
+        // ✅ Update UI
         function updateCounterUI(count) {
           if (!counterElement) return;
           counterElement.textContent =
@@ -517,7 +519,7 @@
               : "Visitors";
         }
 
-        // Get from cache
+        // ✅ Get from cache
         function getCachedData() {
           try {
             const cache = localStorage.getItem(CACHE_KEY);
@@ -531,13 +533,13 @@
           }
         }
 
-        // Save to cache
+        // ✅ Save to cache
         function cacheData(count) {
           const cache = { timestamp: Date.now(), count };
           localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
         }
 
-        // Main function
+        // ✅ Main logic
         async function updateCounter() {
           const cachedCount = getCachedData();
           if (cachedCount !== null) updateCounterUI(cachedCount);
@@ -557,6 +559,7 @@
       });
   </body>
 </html>
+
 
 
 
