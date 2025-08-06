@@ -496,23 +496,24 @@
         });
       });
 
-      // Enhanced Visitor Counter Implementation
+      // Enhanced Visitor Counter Implementation with Simple Metrics Endpoint
       document.addEventListener("DOMContentLoaded", function () {
         const counterElement = document.getElementById("visitor-count");
-        
+        if (!counterElement) return;
+  
         // Configuration - Update these with your values
         const WEBSITE_ID = "8b3ce781-d545-4fa6-84d0-17201616071a";
         const SHARE_TOKEN = "r4q43H5GVOjVOW3u";
         const UMAMI_URL = "https://umami-mas.vercel.app";
         const CACHE_KEY = "umamiVisitorCache";
         const CACHE_TTL = 300000; // 5 minutes in ms
-        
+  
         // Update counter UI with different states
         function updateCounterUI(count, state = 'loaded') {
           if (!counterElement) return;
-          
+    
           counterElement.className = state;
-          
+    
           switch(state) {
             case 'loading':
               counterElement.textContent = 'Loading visitors...';
@@ -527,19 +528,19 @@
                   : 'Visitors';
           }
         }
-        
-        // Fetch visitor data from Umami API
+  
+        // Fetch visitor data from Umami API using simpler metrics endpoint
         async function fetchVisitorData() {
           try {
             updateCounterUI(null, 'loading');
-            
+      
             const response = await fetch(
-              `${UMAMI_URL}/api/websites/${WEBSITE_ID}/stats?token=${encodeURIComponent(SHARE_TOKEN)}`,
+              `${UMAMI_URL}/api/websites/${WEBSITE_ID}/metrics?token=${encodeURIComponent(SHARE_TOKEN)}&type=count`,
               { headers: { 'Content-Type': 'application/json' } }
             );
-            
+      
             if (!response.ok) throw new Error(`API error: ${response.status}`);
-            
+      
             const data = await response.json();
             return data;
           } catch (error) {
@@ -547,18 +548,18 @@
             return null;
           }
         }
-        
+    
         // Get cached data from localStorage
         function getCachedData() {
           const cache = localStorage.getItem(CACHE_KEY);
           if (!cache) return null;
-          
+    
           const { timestamp, count } = JSON.parse(cache);
           const age = Date.now() - timestamp;
-          
+    
           return age < CACHE_TTL ? count : null;
-        }
-        
+       }
+  
         // Cache the data in localStorage
         function cacheData(count) {
           const cache = {
@@ -567,7 +568,7 @@
           };
           localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
         }
-        
+  
         // Main function to update counter
         async function updateCounter() {
           try {
@@ -576,8 +577,8 @@
             if (cachedCount !== null) {
               updateCounterUI(cachedCount);
             }
-            
-            // Then fetch fresh data
+      
+            // Then fetch fresh data using simpler endpoint
             const data = await fetchVisitorData();
             if (data && data.pageviews && data.pageviews.value !== undefined) {
               const count = data.pageviews.value;
@@ -591,6 +592,13 @@
             updateCounterUI(null, 'error');
           }
         }
+  
+        // Initialize
+        updateCounter();
+  
+        // Update every 5 minutes
+        setInterval(updateCounter, CACHE_TTL);
+      });
         
         // Form submission tracking
         document.getElementById('contactForm')?.addEventListener('submit', function() {
@@ -608,3 +616,4 @@
     </script>
   </body>
 </html>
+
