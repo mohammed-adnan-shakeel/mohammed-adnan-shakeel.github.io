@@ -467,93 +467,100 @@
         });
       });
 
-      // JavaScript implementation from above
-        document.addEventListener('DOMContentLoaded', function() {
-            const counterElement = document.getElementById('visitor-count');
-            
-            // Configuration - YOU NEED TO UPDATE THESE VALUES
-            const WEBSITE_ID = '8b3ce781-d545-4fa6-84d0-17201616071a';  // Replace with your Umami website ID
-            const SHARE_TOKEN = '297uwkcbH3VKQ7a5MRrtJ1xMaozfsVRLYQMJE93WoFiBFPobky+9OG+Ay8ZJ1hK+r8ZOM+NQ3DKWpd7fCO8rCzu71Krci5CMeq3AltaoPTP4XrPhnlquO/oxTH5Dbeb6gM4vl5HXt0Nk8DR2BxkN7/LY8i8dCzHtNl1oWop7cvx6O0ouygMed+1uuQJ9cFui3ngdTHU0n9umHTjr+xYSbKKxUv47aKoR22C6JhJXR02ZoI8ExPw9jZTRPa2xfaGeO30hASifbQmrdKkxWMPa7qJFtoj0Kw2OLiJ/vGSzEoXgJ2hE8tP9+EEZ1z00UlrMdNBPdnbGx4i2xNJ7cYA0NU6tXI+HFAGRmmVdNiRy1Ah0GjTZWd9mN2MuDoFL';   // Replace with your Umami share token
-            const UMAMI_URL = 'https://umami-mas.vercel.app'; // Your Umami instance URL
-            
-            // API endpoint using share token
-            const API_URL = "https://umami-mas.vercel.app/api/websites/8b3ce781-d545-4fa6-84d0-17201616071a/stats?token=297uwkcbH3VKQ7a5MRrtJ1xMaozfsVRLYQMJE93WoFiBFPobky+9OG+Ay8ZJ1hK+r8ZOM+NQ3DKWpd7fCO8rCzu71Krci5CMeq3AltaoPTP4XrPhnlquO/oxTH5Dbeb6gM4vl5HXt0Nk8DR2BxkN7/LY8i8dCzHtNl1oWop7cvx6O0ouygMed+1uuQJ9cFui3ngdTHU0n9umHTjr+xYSbKKxUv47aKoR22C6JhJXR02ZoI8ExPw9jZTRPa2xfaGeO30hASifbQmrdKkxWMPa7qJFtoj0Kw2OLiJ/vGSzEoXgJ2hE8tP9+EEZ1z00UlrMdNBPdnbGx4i2xNJ7cYA0NU6tXI+HFAGRmmVdNiRy1Ah0GjTZWd9mN2MuDoFL";
+      document.addEventListener("DOMContentLoaded", function () {
+        const counterElement = document.getElementById("visitor-count");
 
-            
-            // Cache variables
-            const CACHE_KEY = 'umamiVisitorCache';
-            const CACHE_TTL = 300000; // 5 minutes in ms
-            
-            // Fetch visitor data
-            async function fetchVisitorData() {
-                try {
-                    const response = await fetch(API_URL);
-                    if (!response.ok) throw new Error('API request failed');
-                    return await response.json();
-                } catch (error) {
-                    console.error('Error fetching visitor data:', error);
-                    return null;
-                }
-            }
-            
-            // Update counter display
-            function updateCounterUI(count) {
-                if (count !== null) {
-                    counterElement.textContent = 
-                        new Intl.NumberFormat().format(count) + ' visitors';
-                } else {
-                    counterElement.textContent = 'Visitors';
-                }
-            }
-            
-            // Get cached data
-            function getCachedData() {
-                const cache = localStorage.getItem(CACHE_KEY);
-                if (!cache) return null;
-                
-                const { timestamp, count } = JSON.parse(cache);
-                const age = Date.now() - timestamp;
-                
-                return age < CACHE_TTL ? count : null;
-            }
-            
-            // Cache the data
-            function cacheData(count) {
-                const cache = {
-                    timestamp: Date.now(),
-                    count: count
-                };
-                localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
-            }
-            
-            // Main function to update counter
-            async function updateCounter() {
-                // Try to load cached data first
-                const cachedCount = getCachedData();
-                if (cachedCount !== null) {
-                    updateCounterUI(cachedCount);
-                }
-                
-                // Fetch fresh data
-                const data = await fetchVisitorData();
-                if (data && data.pageviews && data.pageviews.value) {
-                    const count = data.pageviews.value;
-                    updateCounterUI(count);
-                    cacheData(count);
-                } else if (cachedCount === null) {
-                    updateCounterUI(null);
-                }
-            }
-            
-            // Initial update
-            updateCounter();
-            
-            // Update every 5 minutes
-            setInterval(updateCounter, CACHE_TTL);
-        });
+        // Configuration
+        const WEBSITE_ID = "8b3ce781-d545-4fa6-84d0-17201616071a"; // Your Umami website ID
+        const SHARE_TOKEN =
+          "297uwkcbH3VKQ7a5MRrtJ1xMaozfsVRLYQMJE93WoFiBFPobky+9OG+Ay8ZJ1hK+r8ZOM+NQ3DKWpd7fCO8rCzu71Krci5CMeq3AltaoPTP4XrPhnlquO/oxTH5Dbeb6gM4vl5HXt0Nk8DR2BxkN7/LY8i8dCzHtNl1oWop7cvx6O0ouygMed+1uuQJ9cFui3ngdTHU0n9umHTjr+xYSbKKxUv47aKoR22C6JhJXR02ZoI8ExPw9jZTRPa2xfaGeO30hASifbQmrdKkxWMPa7qJFtoj0Kw2OLiJ/vGSzEoXgJ2hE8tP9+EEZ1z00UlrMdNBPdnbGx4i2xNJ7cYA0NU6tXI+HFAGRmmVdNiRy1Ah0GjTZWd9mN2MuDoFL";
+        const UMAMI_URL = "https://umami-mas.vercel.app";
+        const API_URL = `${UMAMI_URL}/api/websites/${WEBSITE_ID}/stats?token=${SHARE_TOKEN}`;
+
+        // Cache settings
+        const CACHE_KEY = "umamiVisitorCache";
+        const CACHE_TTL = 300000; // 5 minutes
+
+        // Fetch visitor data
+        async function fetchVisitorData() {
+          try {
+            const response = await fetch(API_URL);
+            if (!response.ok) throw new Error("API request failed");
+            const data = await response.json();
+
+            console.log("Visitor data response:", data); // Debugging aid
+            return data;
+          } catch (error) {
+            console.error("Error fetching visitor data:", error);
+            return null;
+          }
+        }
+
+        // Update counter UI
+        function updateCounterUI(count) {
+          if (!counterElement) return;
+
+          if (count !== null) {
+            counterElement.textContent =
+              new Intl.NumberFormat().format(count) + " visitors";
+          } else {
+            counterElement.textContent = "Visitors";
+          }
+        }
+
+        // Use cached data
+        function getCachedData() {
+          try {
+            const cache = localStorage.getItem(CACHE_KEY);
+            if (!cache) return null;
+
+            const { timestamp, count } = JSON.parse(cache);
+            const age = Date.now() - timestamp;
+
+            return age < CACHE_TTL ? count : null;
+          } catch (e) {
+            console.warn("Cache parsing failed:", e);
+            return null;
+          }
+        }
+
+        // Save to cache
+        function cacheData(count) {
+          const cache = {
+            timestamp: Date.now(),
+            count: count,
+          };
+          localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+        }
+
+        // Counter logic
+        async function updateCounter() {
+          const cachedCount = getCachedData();
+          if (cachedCount !== null) {
+            updateCounterUI(cachedCount);
+          }
+
+          const data = await fetchVisitorData();
+          if (
+            data &&
+            data.pageviews &&
+            typeof data.pageviews.value === "number"
+          ) {
+            const count = data.pageviews.value;
+            updateCounterUI(count);
+            cacheData(count);
+          } else if (cachedCount === null) {
+            updateCounterUI(null);
+          }
+        }
+
+        updateCounter();
+        setInterval(updateCounter, CACHE_TTL);
+      });
     </script>
   </body>
 </html>
+
 
 
 
