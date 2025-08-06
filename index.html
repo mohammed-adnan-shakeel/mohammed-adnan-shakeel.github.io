@@ -625,7 +625,7 @@
           const token = "r4q43H5GVOjVOW3u";
           const umamiUrl = "https://umami-mas.vercel.app";
           const cacheKey = "umamiVisitorCache";
-          const cacheTTL = 300000; // 5 min
+          const cacheTTL = 300000;
 
           function updateCounterUI(count, state = "loaded") {
             counterElement.className = state;
@@ -642,10 +642,9 @@
               updateCounterUI(null, "loading");
 
               const now = Date.now();
-              const startAt = 1622505600000; // Fixed start date (e.g., June 1, 2021)
-              const endAt = now;
+              const thirtyDaysAgo = now - 30 * 24 * 60 * 60 * 1000;
 
-              const url = `${umamiUrl}/api/websites/${websiteId}/stats?startAt=${startAt}&endAt=${endAt}`;
+              const url = `${umamiUrl}/api/websites/${websiteId}/stats?startAt=${thirtyDaysAgo}&endAt=${now}`;
 
               const res = await fetch(url, {
                 headers: {
@@ -654,6 +653,7 @@
               });
 
               if (!res.ok) throw new Error("API error");
+
               const data = await res.json();
               return data?.pageviews?.value ?? null;
             } catch (err) {
