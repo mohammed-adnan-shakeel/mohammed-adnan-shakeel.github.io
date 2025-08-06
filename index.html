@@ -407,13 +407,29 @@
           </div>
 
           <!-- Visitor Counter -->
-            <div class="umami-counter">
-                <svg class="counter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                </svg>
-                <span id="visitor-count">Loading visitors...</span>
-            </div>
+           <div class="umami-counter">
+          <svg
+            class="counter-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 
+          4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+            />
+          </svg>
+          <span id="visitor-count">Loading visitors...</span>
+        </div>
 
           <p class="copyright">
             © <span id="currentYear"></span> Mohammed Adnan Shakeel. All rights
@@ -464,22 +480,23 @@
       document.addEventListener("DOMContentLoaded", function () {
         const counterElement = document.getElementById("visitor-count");
 
-        // Configuration
-        const WEBSITE_ID = "8b3ce781-d545-4fa6-84d0-17201616071a"; // Replace with your actual website ID
+        // Configuration (Replace if needed)
+        const WEBSITE_ID = "8b3ce781-d545-4fa6-84d0-17201616071a";
         const SHARE_TOKEN =
           "297uwkcbH3VKQ7a5MRrtJ1xMaozfsVRLYQMJE93WoFiBFPobky+9OG+Ay8ZJ1hK+r8ZOM+NQ3DKWpd7fCO8rCzu71Krci5CMeq3AltaoPTP4XrPhnlquO/oxTH5Dbeb6gM4vl5HXt0Nk8DR2BxkN7/LY8i8dCzHtNl1oWop7cvx6O0ouygMed+1uuQJ9cFui3ngdTHU0n9umHTjr+xYSbKKxUv47aKoR22C6JhJXR02ZoI8ExPw9jZTRPa2xfaGeO30hASifbQmrdKkxWMPa7qJFtoj0Kw2OLiJ/vGSzEoXgJ2hE8tP9+EEZ1z00UlrMdNBPdnbGx4i2xNJ7cYA0NU6tXI+HFAGRmmVdNiRy1Ah0GjTZWd9mN2MuDoFL";
         const UMAMI_URL = "https://umami-mas.vercel.app";
 
-        // Time range: last 30 days
+        // Time range: Last 30 days
         const endAt = Date.now();
         const startAt = endAt - 30 * 24 * 60 * 60 * 1000;
 
         const API_URL = `${UMAMI_URL}/api/websites/${WEBSITE_ID}/stats?startAt=${startAt}&endAt=${endAt}&token=${SHARE_TOKEN}`;
 
-        // Cache settings
+        // Cache setup
         const CACHE_KEY = "umamiVisitorCache";
-        const CACHE_TTL = 300000; // 5 minutes
+        const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
+        // Fetch data from Umami API
         async function fetchVisitorData() {
           try {
             const response = await fetch(API_URL);
@@ -493,52 +510,42 @@
           }
         }
 
+        // Update UI
         function updateCounterUI(count) {
           if (!counterElement) return;
-
-          if (count !== null) {
-            counterElement.textContent =
-              new Intl.NumberFormat().format(count) + " visitors";
-          } else {
-            counterElement.textContent = "Visitors";
-          }
+          counterElement.textContent =
+            count !== null
+              ? new Intl.NumberFormat().format(count) + " visitors"
+              : "Visitors";
         }
 
+        // Get from cache
         function getCachedData() {
           try {
             const cache = localStorage.getItem(CACHE_KEY);
             if (!cache) return null;
 
             const { timestamp, count } = JSON.parse(cache);
-            const age = Date.now() - timestamp;
-
-            return age < CACHE_TTL ? count : null;
+            return Date.now() - timestamp < CACHE_TTL ? count : null;
           } catch (e) {
             console.warn("Cache parsing failed:", e);
             return null;
           }
         }
 
+        // Save to cache
         function cacheData(count) {
-          const cache = {
-            timestamp: Date.now(),
-            count: count,
-          };
+          const cache = { timestamp: Date.now(), count };
           localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
         }
 
+        // Main function
         async function updateCounter() {
           const cachedCount = getCachedData();
-          if (cachedCount !== null) {
-            updateCounterUI(cachedCount);
-          }
+          if (cachedCount !== null) updateCounterUI(cachedCount);
 
           const data = await fetchVisitorData();
-          if (
-            data &&
-            data.pageviews &&
-            typeof data.pageviews.value === "number"
-          ) {
+          if (data?.pageviews?.value) {
             const count = data.pageviews.value;
             updateCounterUI(count);
             cacheData(count);
@@ -550,16 +557,9 @@
         updateCounter();
         setInterval(updateCounter, CACHE_TTL);
       });
-      
-    </script>
-    <script 
-    async 
-    defer 
-    data-website-id="8b3ce781-d545-4fa6-84d0-17201616071a"  
-    src="https://umami-mas.vercel.app/script.js" 
-  ></script>
   </body>
 </html>
+
 
 
 
