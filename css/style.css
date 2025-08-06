@@ -292,7 +292,7 @@ section {
 
 .project-img {
   height: 200px;
-  background-image: url("../assets/project/Feedback.jpg");
+  background-image: url("../assets/projects/Feedback.jpg");
   background-size: cover; 
   background-position: center; 
   background-repeat: no-repeat;
@@ -680,6 +680,7 @@ footer {
     gap: 1rem;
   }
 }
+
 
 
 
