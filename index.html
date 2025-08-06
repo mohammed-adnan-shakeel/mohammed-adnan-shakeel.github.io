@@ -623,9 +623,9 @@
           const counterElement = document.getElementById("visitor-count");
           const websiteId = "8b3ce781-d545-4fa6-84d0-17201616071a";
           const token = "r4q43H5GVOjVOW3u";
-          const apiUrl = `https://umami-mas.vercel.app/api/websites/${websiteId}/stats`;
+          const umamiUrl = "https://umami-mas.vercel.app";
           const cacheKey = "umamiVisitorCache";
-          const cacheTTL = 300000; // 5 minutes
+          const cacheTTL = 300000; // 5 min
 
           function updateCounterUI(count, state = "loaded") {
             counterElement.className = state;
@@ -640,18 +640,24 @@
           async function fetchVisitorData() {
             try {
               updateCounterUI(null, "loading");
-              const res = await fetch(apiUrl, {
+
+              const now = Date.now();
+              const startAt = 1622505600000; // Fixed start date (e.g., June 1, 2021)
+              const endAt = now;
+
+              const url = `${umamiUrl}/api/websites/${websiteId}/stats?startAt=${startAt}&endAt=${endAt}`;
+
+              const res = await fetch(url, {
                 headers: {
                   Authorization: `Bearer ${token}`,
                 },
               });
 
-              if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-
+              if (!res.ok) throw new Error("API error");
               const data = await res.json();
               return data?.pageviews?.value ?? null;
             } catch (err) {
-              console.error("Visitor counter fetch error:", err);
+              console.error("Error fetching visitor data:", err);
               return null;
             }
           }
