@@ -672,4 +672,13 @@ footer {
   }
 }
 
+@media (max-width: 430px) {
+  .logo {
+    font-size: 1.2rem;
+  }
+  .footer-links {
+    gap: 1rem;
+  }
+}
+
 
