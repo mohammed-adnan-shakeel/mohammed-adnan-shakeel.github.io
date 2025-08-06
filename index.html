@@ -619,13 +619,13 @@
           });
         });
 
-        const counterElement = document.getElementById("visitor-count");
-        if (counterElement) {
+        document.addEventListener("DOMContentLoaded", () => {
+          const counterElement = document.getElementById("visitor-count");
           const websiteId = "8b3ce781-d545-4fa6-84d0-17201616071a";
           const token = "r4q43H5GVOjVOW3u";
-          const UMAMI_API = "https://umami-mas.vercel.app/api/websites";
-          const CACHE_KEY = "umamiVisitorCache";
-          const CACHE_TTL = 300000;
+          const apiUrl = `https://umami-mas.vercel.app/api/websites/${websiteId}/stats`;
+          const cacheKey = "umamiVisitorCache";
+          const cacheTTL = 300000; // 5 minutes
 
           function updateCounterUI(count, state = "loaded") {
             counterElement.className = state;
@@ -634,56 +634,54 @@
                 ? "Loading visitors..."
                 : state === "error"
                 ? "Visitor data unavailable"
-                : count !== null
-                ? new Intl.NumberFormat().format(count) + " visitors"
-                : "Visitors";
+                : new Intl.NumberFormat().format(count) + " visitors";
           }
 
           async function fetchVisitorData() {
             try {
               updateCounterUI(null, "loading");
-              const response = await fetch(`${UMAMI_API}/${websiteId}/stats`, {
+              const res = await fetch(apiUrl, {
                 headers: {
                   Authorization: `Bearer ${token}`,
                 },
               });
-              if (!response.ok) throw new Error("API error");
-              return await response.json();
+
+              if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+
+              const data = await res.json();
+              return data?.pageviews?.value ?? null;
             } catch (err) {
-              console.error("Error fetching visitor data:", err);
+              console.error("Visitor counter fetch error:", err);
               return null;
             }
           }
 
-          function getCachedData() {
-            const cache = localStorage.getItem(CACHE_KEY);
+          function getCachedCount() {
+            const cache = localStorage.getItem(cacheKey);
             if (!cache) return null;
             const { timestamp, count } = JSON.parse(cache);
-            return Date.now() - timestamp < CACHE_TTL ? count : null;
+            return Date.now() - timestamp < cacheTTL ? count : null;
           }
 
-          async function updateCounter() {
-            const cachedCount = getCachedData();
-            if (cachedCount !== null) updateCounterUI(cachedCount);
+          async function updateVisitorCount() {
+            const cached = getCachedCount();
+            if (cached !== null) updateCounterUI(cached);
 
-            const data = await fetchVisitorData();
-            if (data?.pageviews?.value !== undefined) {
+            const liveCount = await fetchVisitorData();
+            if (liveCount !== null) {
               localStorage.setItem(
-                CACHE_KEY,
-                JSON.stringify({
-                  timestamp: Date.now(),
-                  count: data.pageviews.value,
-                })
+                cacheKey,
+                JSON.stringify({ timestamp: Date.now(), count: liveCount })
               );
-              updateCounterUI(data.pageviews.value);
-            } else if (cachedCount === null) {
+              updateCounterUI(liveCount);
+            } else if (cached === null) {
               updateCounterUI(null, "error");
             }
           }
 
-          updateCounter();
-          setInterval(updateCounter, CACHE_TTL);
-        }
+          updateVisitorCount();
+          setInterval(updateVisitorCount, cacheTTL);
+        });
 
         // Contact form submission tracking
         document
