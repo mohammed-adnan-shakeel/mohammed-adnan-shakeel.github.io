@@ -619,7 +619,7 @@
           });
         });
 
-        // ✅ Visitor Counter using public Umami share link
+        // ✅ Visitor Counter
         const counterElement = document.getElementById("visitor-count");
 
         async function fetchVisitorCount() {
@@ -628,8 +628,7 @@
             const res = await fetch(
               "https://umami-proxy-mas.vercel.app/api/visitor-count"
             );
-            if (!res.ok) throw new Error("Failed to fetch");
-
+            if (!res.ok) throw new Error("Fetch failed");
             const data = await res.json();
             counterElement.textContent =
               data.visitors.toLocaleString() + " visitors";
@@ -638,6 +637,8 @@
             counterElement.textContent = "Visitor data unavailable";
           }
         }
+
+        fetchVisitorCount();
 
         // Contact form submission tracking
         document
@@ -651,3 +652,4 @@
     </script>
   </body>
 </html>
+
