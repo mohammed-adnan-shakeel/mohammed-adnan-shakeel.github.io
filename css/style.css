@@ -196,7 +196,7 @@ nav {
 }
 
 .profile-img {
-  width: 600px;
+  width: 625px;
   height: 625px;
   background-size: cover;
   background-position: center;
@@ -748,3 +748,4 @@ footer {
     gap: 1rem;
   }
 }
+
