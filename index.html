@@ -11,37 +11,46 @@
       content="Explore the portfolio of Mohammed Adnan Shakeel – Full Stack Developer skilled in Java, Spring Boot, and modern web technologies."
     />
 
+    <!-- Meta Keywords -->
+    <meta
+      name="keywords"
+      content="Mohammed Adnan Shakeel, Software Engineer, Java Developer, Spring Boot Developer, Full Stack Developer, Portfolio, PESCE Mandya"
+    />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://mohammed-adnan-shakeel.github.io/" />
+
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="google9b378d8a347630cb" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph (for sharing previews) -->
     <meta
       property="og:title"
-      content="Mohammed Adnan Shakeel | My Portfolio"
+      content="Mohammed Adnan Shakeel | Software Engineer"
     />
     <meta
       property="og:description"
-      content="Explore my portfolio showcasing Java, Spring Boot, and full-stack projects."
-    />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://mohammed-adnan-shakeel.github.io"
+      content="Portfolio of Mohammed Adnan Shakeel – Full-Stack Java Developer specializing in Spring Boot."
     />
     <meta
       property="og:image"
       content="https://mohammed-adnan-shakeel.github.io/assets/og-image.png"
     />
+    <meta
+      property="og:url"
+      content="https://mohammed-adnan-shakeel.github.io/"
+    />
+    <meta property="og:type" content="website" />
 
-    <!-- Twitter -->
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Mohammed Adnan Shakeel | My Portfolio"
+      content="Mohammed Adnan Shakeel | Software Engineer"
     />
     <meta
       name="twitter:description"
-      content="Explore my work in Java, Spring Boot, and backend systems."
+      content="Full-Stack Developer with Spring Boot and Java Expertise"
     />
     <meta
       name="twitter:image"
@@ -66,9 +75,19 @@
       rel="stylesheet"
     />
     <link
-      rel="stylesheet"
+      rel="preload"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet';"
     />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    /></noscript>
+
+    <link rel="preload" as="image" href="assets/Profile.jpg" />
+
     <link rel="stylesheet" href="css/style.css" />
 
     <!-- Umami Analytics -->
@@ -171,7 +190,12 @@
             >
           </div>
           <div class="profile-image">
-            <div class="profile-img"></div>
+            <div class="profile-img">
+              <img
+                src="assets/Profile.jpg"
+                alt="Mohammed Adnan Shakeel – Full Stack Developer"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -363,7 +387,12 @@
         </div>
         <div class="projects-grid">
           <div class="project-card">
-            <div class="project-img"></div>
+            <div class="project-img">
+              <img
+                src="assets/projects/Feedback.jpg"
+                alt="Project - Online Feedback Evaluation System"
+              />
+            </div>
             <div class="project-content">
               <h3>Online Feedback Evaluation System</h3>
               <p>
@@ -660,11 +689,3 @@
     </script>
   </body>
 </html>
-
-
-
-
-
-
-
-
