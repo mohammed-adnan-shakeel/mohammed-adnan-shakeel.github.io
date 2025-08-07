@@ -34,6 +34,13 @@ body {
   flex-wrap: wrap;
 }
 
+h1 { font-size: 2rem; }  
+h2 { font-size: 1.6rem; } 
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+h5 { font-size: 0.9rem; }
+h6 { font-size: 0.85rem; }
+
 /* Typography */
   h1, h2, h3, h4, h5 {
     font-family: 'Space Grotesk', sans-serif;
@@ -754,5 +761,6 @@ footer {
     gap: 1rem;
   }
 }
+
 
 
