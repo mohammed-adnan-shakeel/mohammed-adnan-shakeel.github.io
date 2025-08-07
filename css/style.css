@@ -579,13 +579,19 @@ footer {
 }
 
 .social-icons a {
-  color: var(--light);
-  font-size: 1.2rem;
-  transition: var(--transition);
+  margin: 0 8px;
+  display: inline-block;
 }
 
-.social-icons a:hover {
-  color: var(--primary);
+.social-icons svg {
+  fill: var(--light);
+  width: 24px;
+  height: 24px;
+  transition: fill 0.3s ease;
+}
+
+.social-icons svg:hover {
+  color: var(--primary); 
 }
 
 .copyright {
@@ -748,4 +754,5 @@ footer {
     gap: 1rem;
   }
 }
+
 
