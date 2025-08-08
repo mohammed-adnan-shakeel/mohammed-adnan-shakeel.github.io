@@ -1,7 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 - Page Not Found</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8fafc;
+      color: #1f2937;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      color: #6b7280;
+      margin-bottom: 2rem;
+    }
+    a {
+      display: inline-block;
+      padding: 0.7rem 1.5rem;
+      background-color: #56aaa4;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    a:hover {
+      background-color: #478f89;
+      transform: translateY(-2px);
+    }
+    .emoji {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
 <body>
-  <h1>Oops! Page not found.</h1>
+  <div class="emoji">🚫</div>
+  <h1>Oops! Page not found</h1>
+  <p>The page you’re looking for doesn’t exist or has been moved.</p>
   <a href="/">← Back to Home</a>
 </body>
 </html>
