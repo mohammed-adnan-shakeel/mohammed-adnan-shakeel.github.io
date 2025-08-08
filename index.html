@@ -59,26 +59,35 @@
 
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Mohammed Adnan Shakeel",
         "url": "https://mohammed-adnan-shakeel.github.io/",
         "image": "https://mohammed-adnan-shakeel.github.io/assets/Profile.png",
         "sameAs": [
-            "https://github.com/mohammed-adnan-shakeel/",
-            "https://linkedin.com/in/mohammed-adnan-shakeel19/"
+          "https://github.com/mohammed-adnan-shakeel/",
+          "https://linkedin.com/in/mohammed-adnan-shakeel19/"
         ],
         "jobTitle": "Software Engineer",
         "alumniOf": "PES College of Engineering"
-    }
+      }
     </script>
 
     <!-- Favicon and Manifest -->
-    <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon/favicon-96x96.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="assets/favicon/favicon-96x96.png"
+    />
     <link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg" />
     <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/favicon/apple-touch-icon.png"
+    />
     <meta name="apple-mobile-web-app-title" content="Adnan's Portfolio" />
     <link rel="manifest" href="/site.webmanifest" />
 
@@ -86,21 +95,688 @@
     <meta name="robots" content="index, follow" />
     <meta name="author" content="Mohammed Adnan Shakeel" />
 
-    <link rel="preload" as="image" href="assets/Profile.webp" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
 
-    <link rel="preload" href="assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="assets/fonts/Inter-Medium.woff2" as="font" type="font/woff2" crossorigin>
-
-    <link rel="preload" href="/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
-    
-    <!-- Umami Analytics -->
     <script
       async
       defer
       data-website-id="8b3ce781-d545-4fa6-84d0-17201616071a"
       src="https://umami-mas.vercel.app/script.js"
     ></script>
+
+    <style>
+      :root {
+        --primary: #56aaa4;
+        --primary-dark: #478f89;
+        --dark: #1f4340;
+        --darker: #0a1817;
+        --light: #f8fafc;
+        --lighter: #ffffff;
+        --gray: #64748b;
+        --light-gray: #e2e8f0;
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--lighter);
+        color: var(--dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        flex-wrap: wrap;
+      }
+
+      /* Header & Navigation */
+      header {
+        background-color: var(--lighter);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        transition: var(--transition);
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 0;
+      }
+
+      .logo {
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-links li {
+        margin-left: 2rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--dark);
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      .hamburger {
+        display: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--dark);
+      }
+
+      /* Profile Section */
+      .profile {
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        padding: 7rem 0 5rem;
+      }
+
+      .profile-content {
+        display: flex;
+        grid-template-columns: 1fr 1fr;
+        flex-direction: row;
+        align-items: center;
+        gap: 3rem;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .profile-text h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+      }
+
+      .profile-text h1 span {
+        color: var(--primary);
+      }
+
+      .profile-text p {
+        text-align: justify;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        color: var(--gray);
+        max-width: 500px;
+      }
+
+      .profile-text em {
+        font-style: italic;
+        color: #888;
+        display: block;
+        margin-top: 5px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.8rem 1.8rem;
+        background-color: var(--primary);
+        color: white;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: var(--transition);
+        border-color: #ffffff;
+        border-style: none;
+      }
+
+      .btn:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+
+      .profile-image {
+        display: flex;
+        justify-content: center;
+      }
+
+      .profile-img {
+        width: 600px;
+        height: 600px;
+        background-image: url("assets/Profile.webp");
+        background-size: cover;
+        background-position: center;
+      }
+
+      /* Section Styling */
+      section {
+        padding: 5rem 0;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .section-title h2 {
+        font-size: 2rem;
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-title h2::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background-color: var(--primary);
+      }
+
+      /* About Section */
+      .about-content {
+        display: flow-root;
+        align-items: center;
+      }
+
+      .about-text h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .about-text p {
+        margin-bottom: 1.5rem;
+        color: var(--gray);
+      }
+
+      .about-skills h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .skills-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .skill-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .skill-item i {
+        color: var(--primary);
+      }
+
+      /* Resume Section */
+      .resume-container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .resume-section {
+        margin-bottom: 3rem;
+      }
+
+      .resume-section h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--light-gray);
+      }
+
+      .resume-item {
+        margin-bottom: 2rem;
+        padding-left: 1.5rem;
+        border-left: 2px solid var(--primary);
+      }
+
+      .resume-item h4 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .resume-item .date {
+        color: var(--gray);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .resume-item p {
+        color: var(--gray);
+        margin-bottom: 0.5rem;
+      }
+
+      .resume-item ul {
+        padding-left: 1.5rem;
+        color: var(--gray);
+      }
+
+      .resume-item li {
+        margin-bottom: 0.5rem;
+      }
+
+      /* Projects Section */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+      }
+
+      .project-card {
+        background-color: var(--lighter);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+      }
+
+      .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .project-img {
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .project-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+      }
+
+      .project-card:hover .project-img img {
+        transform: scale(1.05);
+      }
+
+      .project-content {
+        padding: 1.5rem;
+      }
+
+      .project-content h3 {
+        margin-bottom: 0.5rem;
+        font-size: 1.3rem;
+      }
+
+      .project-content p {
+        margin-bottom: 1rem;
+        color: var(--gray);
+      }
+
+      .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .tech-tag {
+        background-color: var(--light-gray);
+        color: var(--dark);
+        padding: 0.3rem 0.8rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+      }
+
+      .project-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .project-links a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: var(--primary);
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .project-links a:hover {
+        color: var(--primary-dark);
+      }
+
+      /* Testimonials Section */
+      .testimonials-container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .testimonial-card {
+        background-color: var(--lighter);
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+      }
+
+      .testimonial-content {
+        text-align: justify;
+        font-style: italic;
+        margin-bottom: 1.5rem;
+        color: var(--gray);
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .author-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+
+      .author-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .author-info h4 {
+        font-weight: 600;
+      }
+
+      .author-info p {
+        color: var(--gray);
+        font-size: 0.9rem;
+      }
+
+      /* Contact Section */
+      .contact-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+      }
+
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .contact-item {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .contact-item i {
+        font-size: 1.2rem;
+        color: var(--primary);
+        margin-top: 0.3rem;
+      }
+
+      .contact-item a {
+        text-decoration: none;
+        color: var(--dark);
+      }
+
+      .contact-form {
+        background-color: var(--lighter);
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid var(--light-gray);
+        border-radius: 6px;
+        font-family: "Inter", sans-serif;
+      }
+
+      .form-group textarea {
+        height: 150px;
+        resize: vertical;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--darker);
+        color: var(--light);
+        padding: 3rem 0;
+        text-align: center;
+      }
+
+      .footer-content {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .footer-logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--light);
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin: 2rem 0;
+        list-style: none;
+      }
+
+      .footer-links a {
+        color: var(--light);
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover {
+        color: var(--primary);
+      }
+
+      .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .social-icons a {
+        color: var(--light);
+        font-size: 1.2rem;
+        transition: var(--transition);
+      }
+
+      .social-icons a:hover {
+        color: var(--primary);
+      }
+
+      .copyright {
+        font-size: 0.9rem;
+        color: var(--gray);
+      }
+
+      /* Base Styles */
+
+      .profile-image {
+        flex: 1;
+      }
+
+      .profile-text {
+        flex: 1;
+      }
+
+      .contact-form,
+      .contact-info {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1024px) {
+        .logo {
+          font-size: 1.3rem;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .logo {
+          font-size: 1.1rem;
+        }
+        .nav-links li {
+          margin-left: 0.8rem;
+        }
+
+        .profile-content {
+          flex-direction: column; /* Stack vertically on smaller screens */
+        }
+
+        .profile-image {
+          order: 1; /* Show image first on mobile */
+        }
+
+        .profile-text {
+          order: 2;
+          text-align: center;
+        }
+
+        .profile-text p {
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .profile-text h1 {
+          font-size: 2rem;
+        }
+
+        .profile-img {
+          width: 250px;
+          height: 250px;
+          margin: 0 auto;
+        }
+
+        .contact-container {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 2rem;
+          flex-wrap: wrap;
+        }
+      }
+
+      /* Other Components - Nav, Cards, Projects, etc. */
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: row; /* Adjust if needed */
+        }
+
+        .hamburger {
+          display: block;
+        }
+
+        .logo {
+          font-size: 1.1rem;
+        }
+
+        .nav-links {
+          position: fixed;
+          top: 80px;
+          left: -100%;
+          background-color: var(--lighter);
+          width: 100%;
+          flex-direction: column;
+          align-items: center;
+          padding: 2rem 0;
+          transition: var(--transition);
+          box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links.active {
+          left: 0;
+        }
+
+        .nav-links li {
+          margin: 1rem 0;
+        }
+
+        .profile-text p {
+          text-align: left;
+        }
+
+        .about-content {
+          grid-template-columns: 1fr; /* Stack content vertically */
+          text-align: center;
+        }
+
+        .about-text p {
+          text-align: justify;
+          font-size: 1rem;
+          line-height: 1.6;
+        }
+
+        .skills-list {
+          grid-template-columns: 1fr; /* Stack skill items vertically */
+          justify-items: left;
+        }
+
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 430px) {
+        .logo {
+          font-size: 1.2rem;
+        }
+        .footer-links {
+          gap: 1rem;
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- Header & Navigation -->
@@ -163,16 +839,7 @@
             id="hamburger"
             data-umami-event="Mobile Menu Toggled"
           >
-            <svg id="menu-icon" width="28" height="28" viewBox="0 0 100 100">
-              <path
-                id="menu-path"
-                d="M 20 30 H 80 M 20 50 H 80 M 20 70 H 80"
-                stroke="currentColor"
-                stroke-width="8"
-                stroke-linecap="round"
-                fill="none"
-              />
-            </svg>
+            <i class="fas fa-bars"></i>
           </div>
         </nav>
       </div>
@@ -203,15 +870,7 @@
             >
           </div>
           <div class="profile-image">
-            <div class="profile-img">
-              <img
-                src="assets/Profile.webp"
-                alt="Mohammed Adnan Shakeel – Full Stack Developer"
-                class="profile-img"
-                loading="eager" 
-                fetchpriority="high"
-              />
-            </div>
+            <div class="profile-img"></div>
           </div>
         </div>
       </div>
@@ -256,175 +915,54 @@
             <h3>Core Skills</h3>
             <div class="skills-list">
               <div class="skill-item">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M20.285 6.709l-11.4 11.4-5.657-5.657 1.414-1.414 4.243 4.243 9.986-9.986z"
-                  />
-                </svg>
+                <i class="fas fa-check"></i>
                 <span>Java</span>
               </div>
               <div class="skill-item">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M20.285 6.709l-11.4 11.4-5.657-5.657 1.414-1.414 4.243 4.243 9.986-9.986z"
-                  />
-                </svg>
+                <i class="fas fa-check"></i>
                 <span>Spring Boot</span>
               </div>
               <div class="skill-item">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M20.285 6.709l-11.4 11.4-5.657-5.657 1.414-1.414 4.243 4.243 9.986-9.986z"
-                  />
-                </svg>
+                <i class="fas fa-check"></i>
                 <span>Backend Development</span>
               </div>
               <div class="skill-item">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M20.285 6.709l-11.4 11.4-5.657-5.657 1.414-1.414 4.243 4.243 9.986-9.986z"
-                  />
-                </svg>
+                <i class="fas fa-check"></i>
                 <span>REST APIs</span>
               </div>
               <div class="skill-item">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M20.285 6.709l-11.4 11.4-5.657-5.657 1.414-1.414 4.243 4.243 9.986-9.986z"
-                  />
-                </svg>
+                <i class="fas fa-check"></i>
                 <span>MySQL</span>
               </div>
               <div class="skill-item">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M20.285 6.709l-11.4 11.4-5.657-5.657 1.414-1.414 4.243 4.243 9.986-9.986z"
-                  />
-                </svg>
+                <i class="fas fa-check"></i>
                 <span>GitHub</span>
               </div>
             </div>
-
             <h3>Additional Skills</h3>
             <div class="skills-list">
               <div class="skill-item">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M20.285 6.709l-11.4 11.4-5.657-5.657 1.414-1.414 4.243 4.243 9.986-9.986z"
-                  />
-                </svg>
+                <i class="fas fa-check"></i>
                 <span>JavaScript</span>
               </div>
               <div class="skill-item">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M20.285 6.709l-11.4 11.4-5.657-5.657 1.414-1.414 4.243 4.243 9.986-9.986z"
-                  />
-                </svg>
+                <i class="fas fa-check"></i>
                 <span>HTML/CSS</span>
               </div>
               <div class="skill-item">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M20.285 6.709l-11.4 11.4-5.657-5.657 1.414-1.414 4.243 4.243 9.986-9.986z"
-                  />
-                </svg>
+                <i class="fas fa-check"></i>
                 <span>React (Basics)</span>
               </div>
               <div class="skill-item">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M20.285 6.709l-11.4 11.4-5.657-5.657 1.414-1.414 4.243 4.243 9.986-9.986z"
-                  />
-                </svg>
+                <i class="fas fa-check"></i>
                 <span>Docker</span>
               </div>
               <div class="skill-item">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M20.285 6.709l-11.4 11.4-5.657-5.657 1.414-1.414 4.243 4.243 9.986-9.986z"
-                  />
-                </svg>
+                <i class="fas fa-check"></i>
                 <span>CI/CD</span>
               </div>
               <div class="skill-item">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M20.285 6.709l-11.4 11.4-5.657-5.657 1.414-1.414 4.243 4.243 9.986-9.986z"
-                  />
-                </svg>
+                <i class="fas fa-check"></i>
                 <span>Cloud Computing (AWS Basics)</span>
               </div>
             </div>
@@ -443,7 +981,7 @@
           <div class="resume-section">
             <h3>Education</h3>
             <div class="resume-item">
-              <h4>B.E. in Computer Science and Engineering</h4>
+              <h4>BE in Computer Science and Engineering</h4>
               <p class="date">2024 - 2027</p>
               <p>PES College of Engineering, Mandya.</p>
               <p>CGPA: 6.31/10.0</p>
@@ -495,26 +1033,10 @@
                   data-umami-event="Certificate Viewed"
                   data-umami-event-certificate="React JS"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    fill="currentColor"
-                    viewBox="0 0 512 512"
-                  >
-                    <path
-                      d="M432 320h-32a16 16 0 0 0-16 16v112H64V128h112a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16H48a48 48 0 0 0-48 48v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V336a16 16 0 0 0-16-16z"
-                    />
-                    <path
-                      d="M320 0v48a16 16 0 0 0 27.31 11.31L396.69 16l99.65 99.65a16 16 0 0 0 22.63 0L512 112V0z"
-                    />
-                    <path d="M384 0L224 160v48h48l160-160z" />
-                  </svg>
-                  See Credential
+                  <i class="fas fa-external-link-alt"></i>See Credential
                 </a>
               </div>
             </div>
-
             <div class="resume-item">
               <h4>Database and SQL Certification</h4>
               <p class="date">2023</p>
@@ -525,25 +1047,20 @@
                   data-umami-event="Certificate Viewed"
                   data-umami-event-certificate="Database and SQL"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    fill="currentColor"
-                    viewBox="0 0 512 512"
-                  >
-                    <path
-                      d="M432 320h-32a16 16 0 0 0-16 16v112H64V128h112a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16H48a48 48 0 0 0-48 48v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V336a16 16 0 0 0-16-16z"
-                    />
-                    <path
-                      d="M320 0v48a16 16 0 0 0 27.31 11.31L396.69 16l99.65 99.65a16 16 0 0 0 22.63 0L512 112V0z"
-                    />
-                    <path d="M384 0L224 160v48h48l160-160z" />
-                  </svg>
-                  See Credential
+                  <i class="fas fa-external-link-alt"></i>See Credential
                 </a>
               </div>
             </div>
+          </div>
+
+          <div class="text-center">
+            <a
+              href="#"
+              class="btn"
+              data-umami-event="Resume Download"
+              data-umami-event-resume="Download Resume"
+              >Download Full Resume</a
+            >
           </div>
         </div>
       </div>
@@ -562,8 +1079,6 @@
                 src="assets/projects/Feedback.webp"
                 alt="Project - Online Feedback Evaluation System"
                 class="project-img"
-                width="400" 
-                height="300" 
                 loading="lazy"
               />
             </div>
@@ -581,29 +1096,9 @@
                 <span class="tech-tag">HTML|CSS</span>
               </div>
               <div class="project-links">
-                <a
-                  href="assets/docs/ofes-report.pdf"
-                  data-umami-event="Project Report Viewed"
-                  data-umami-event-project="OFES"
+                <a href="assets/docs/ofes-report.pdf"
+                  ><i class="fas fa-external-link-alt"></i> Project Report</a
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    fill="currentColor"
-                    viewBox="0 0 512 512"
-                    style="vertical-align: middle; margin-right: 5px"
-                  >
-                    <path
-                      d="M432 320h-32a16 16 0 0 0-16 16v112H64V128h112a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16H48a48 48 0 0 0-48 48v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V336a16 16 0 0 0-16-16z"
-                    />
-                    <path
-                      d="M320 0v48a16 16 0 0 0 27.31 11.31L396.69 16l99.65 99.65a16 16 0 0 0 22.63 0L512 112V0z"
-                    />
-                    <path d="M384 0L224 160v48h48l160-160z" />
-                  </svg>
-                  Project Report
-                </a>
               </div>
             </div>
           </div>
@@ -659,76 +1154,33 @@
         <div class="contact-container">
           <div class="contact-info">
             <div class="contact-item">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M20 4H4C2.897 4 2 4.897 2 6v12c0 1.103.897 2 2 2h16c1.104 0 2-.897 2-2V6c0-1.103-.896-2-2-2zm0 2v.511l-8 5.333-8-5.333V6h16zM4 18V8.489l7.445 4.964a1 1 0 0 0 1.11 0L20 8.489V18H4z"
-                />
-              </svg>
+              <i class="fas fa-envelope"></i>
               <div>
                 <h3>Email</h3>
                 <p>
-                  <a
-                    href="mailto:adnanshakeel1911@outlook.com"
-                    data-umami-event="Email Link Clicked"
-                  >
+                  <a href="mailto:adnanshakeel1911@outlook.com">
                     adnanshakeel1911@outlook.com
                   </a>
                 </p>
               </div>
             </div>
-
             <div class="contact-item">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.4 7.86 10.94.58.1.79-.25.79-.56 0-.28-.01-1.03-.02-2.01-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.07-.74.08-.73.08-.73 1.18.08 1.8 1.21 1.8 1.21 1.05 1.8 2.75 1.28 3.42.98.1-.77.41-1.28.75-1.57-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.3 1.2-3.11-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18.92-.26 1.91-.39 2.89-.39.98 0 1.97.13 2.89.39 2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.75.81 1.2 1.85 1.2 3.11 0 4.43-2.69 5.41-5.25 5.69.42.36.8 1.08.8 2.18 0 1.57-.02 2.83-.02 3.22 0 .31.21.67.8.56A10.999 10.999 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5z"
-                />
-              </svg>
+              <i class="fab fa-github"></i>
               <div>
                 <h3>GitHub</h3>
                 <p>
-                  <a
-                    href="https://github.com/mohammed-adnan-shakeel/"
-                    data-umami-event="Social Link Clicked"
-                    data-umami-event-platform="GitHub"
-                  >
+                  <a href="https://github.com/mohammed-adnan-shakeel/">
                     Mohammed Adnan Shakeel
                   </a>
                 </p>
               </div>
             </div>
-
             <div class="contact-item">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M20.452 20.452h-3.554v-5.569c0-1.327-.026-3.036-1.849-3.036-1.851 0-2.135 1.445-2.135 2.939v5.666h-3.554V9h3.414v1.561h.049c.476-.9 1.637-1.849 3.37-1.849 3.605 0 4.273 2.372 4.273 5.457v6.283zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.56V9h3.554v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.226.792 24 1.771 24h20.451C23.206 24 24 23.226 24 22.271V1.729C24 .774 23.206 0 22.225 0z"
-                />
-              </svg>
+              <i class="fab fa-linkedin"></i>
               <div>
-                <h3>LinkedIn</h3>
+                <h3>Linkedin</h3>
                 <p>
-                  <a
-                    href="https://linkedin.com/in/mohammed-adnan-shakeel19/"
-                    data-umami-event="Social Link Clicked"
-                    data-umami-event-platform="LinkedIn"
-                  >
+                  <a href="https://linkedin.com/in/mohammed-adnan-shakeel19/">
                     Mohammed Adnan Shakeel
                   </a>
                 </p>
@@ -743,11 +1195,11 @@
             >
               <div class="form-group">
                 <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" autocomplete="name" required />
+                <input type="text" id="name" name="name" required />
               </div>
               <div class="form-group">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" autocomplete="email" required />
+                <input type="email" id="email" name="email" required />
               </div>
               <div class="form-group">
                 <label for="subject">Subject</label>
@@ -757,13 +1209,7 @@
                 <label for="message">Message</label>
                 <textarea id="message" name="message" required></textarea>
               </div>
-              <button
-                type="submit"
-                class="btn"
-                data-umami-event="Contact Form Submitted"
-              >
-                Send Message
-              </button>
+              <button type="submit" class="btn">Send Message</button>
             </form>
           </div>
         </div>
@@ -775,112 +1221,26 @@
       <div class="container">
         <div class="footer-content">
           <div class="footer-logo">Mohammed Adnan Shakeel</div>
-          <p>Software Engineer</p>
+          <p>Full-Stack Developer specializing in Spring Boot and Java</p>
 
           <ul class="footer-links">
-            <li>
-              <a
-                href="#home"
-                data-umami-event="Footer Link Clicked"
-                data-umami-event-location="Home"
-                >Home</a
-              >
-            </li>
-            <li>
-              <a
-                href="#about"
-                data-umami-event="Footer Link Clicked"
-                data-umami-event-location="About"
-                >About</a
-              >
-            </li>
-            <li>
-              <a
-                href="#resume"
-                data-umami-event="Footer Link Clicked"
-                data-umami-event-location="Resume"
-                >Resume</a
-              >
-            </li>
-            <li>
-              <a
-                href="#projects"
-                data-umami-event="Footer Link Clicked"
-                data-umami-event-location="Projects"
-                >Projects</a
-              >
-            </li>
-            <li>
-              <a
-                href="#contact"
-                data-umami-event="Footer Link Clicked"
-                data-umami-event-location="Contact"
-                >Contact</a
-              >
-            </li>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#resume">Resume</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
           </ul>
 
-         <div class="social-icons">
-            <a
-              href="mailto:adnanshakeel1911@outlook.com"
-              data-umami-event="Social Icon Clicked"
-              data-umami-event-platform="Email"
-              aria-label="Email"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M1.5 4.5h21v15h-21v-15zm19.5 1.5H3l9 6 9-6zm0 12V8.25l-9 6-9-6V18h18z"
-                />
-              </svg>
-            </a>
-
-            <a
-              href="https://github.com/mohammed-adnan-shakeel/"
-              data-umami-event="Social Icon Clicked"
-              data-umami-event-platform="GitHub"
-              aria-label="GitHub"
-              target="_blank"
-              rel="noopener"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 .3a12 12 0 00-3.79 23.39c.6.11.82-.26.82-.58v-2.16c-3.34.73-4.04-1.63-4.04-1.63-.54-1.37-1.33-1.73-1.33-1.73-1.09-.75.08-.74.08-.74 1.21.09 1.85 1.26 1.85 1.26 1.07 1.85 2.8 1.31 3.49 1 .11-.78.42-1.31.76-1.62-2.67-.31-5.48-1.34-5.48-5.97 0-1.32.47-2.39 1.24-3.23-.13-.31-.54-1.54.12-3.21 0 0 1.01-.33 3.3 1.24a11.5 11.5 0 016 0c2.28-1.57 3.29-1.24 3.29-1.24.66 1.67.25 2.9.12 3.21.77.84 1.24 1.91 1.24 3.23 0 4.63-2.82 5.66-5.5 5.97.43.38.82 1.1.82 2.23v3.28c0 .32.22.69.83.58A12 12 0 0012 .3z"
-                />
-              </svg>
-            </a>
-
-            <a
-              href="https://linkedin.com/in/mohammed-adnan-shakeel19/"
-              data-umami-event="Social Icon Clicked"
-              data-umami-event-platform="LinkedIn"
-              aria-label="LinkedIn"
-              target="_blank"
-              rel="noopener"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.15 1.45-2.15 2.95v5.67h-3.55V9h3.41v1.56h.05c.47-.88 1.62-1.81 3.34-1.81 3.57 0 4.23 2.35 4.23 5.41v6.29zM5.34 7.43a2.06 2.06 0 11.02-4.12 2.06 2.06 0 01-.02 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0z"
-                />
-              </svg>
-            </a>
+          <div class="social-icons">
+            <a href="mailto:adnanshakeel1911@outlook.com"
+              ><i class="fas fa-envelope"></i
+            ></a>
+            <a href="https://github.com/mohammed-adnan-shakeel/"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a href="https://linkedin.com/in/mohammed-adnan-shakeel19/"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
           </div>
 
           <p class="copyright">
@@ -897,39 +1257,33 @@
         document.getElementById("currentYear").textContent =
           new Date().getFullYear();
 
-       // Mobile nav toggle
+        // Mobile Navigation Toggle
         const hamburger = document.getElementById("hamburger");
         const navLinks = document.querySelector(".nav-links");
-        const menuPath = document.getElementById("menu-path");
+        const hamburgerIcon = hamburger.querySelector("i");
 
-        let isOpen = false;
+        hamburger.addEventListener("click", () => {
+          navLinks.classList.toggle("active");
 
-        if (hamburger && navLinks && menuPath) {
-          hamburger.addEventListener("click", () => {
-            isOpen = !isOpen;
-            navLinks.classList.toggle("active");
+          // Toggle between bars and times icons
+          if (hamburgerIcon.classList.contains("fa-bars")) {
+            hamburgerIcon.classList.remove("fa-bars");
+            hamburgerIcon.classList.add("fa-times");
+          } else {
+            hamburgerIcon.classList.remove("fa-times");
+            hamburgerIcon.classList.add("fa-bars");
+          }
+        });
 
-            menuPath.setAttribute(
-              "d",
-              isOpen
-                ? "M 30 30 L 70 70 M 50 50 L 50 50 M 30 70 L 70 30" // X shape
-                : "M 20 30 H 80 M 20 50 H 80 M 20 70 H 80" // Hamburger
-            );
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll(".nav-links a").forEach((link) => {
+          link.addEventListener("click", () => {
+            navLinks.classList.remove("active");
+            hamburgerIcon.classList.remove("fa-times");
+            hamburgerIcon.classList.add("fa-bars");
           });
+        });
 
-          // Close menu when a link is clicked
-          document.querySelectorAll(".nav-links a").forEach((link) => {
-            link.addEventListener("click", () => {
-              isOpen = false;
-              navLinks.classList.remove("active");
-              menuPath.setAttribute(
-                "d",
-                "M 20 30 H 80 M 20 50 H 80 M 20 70 H 80"
-              );
-            });
-          });
-        }
-        
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
           anchor.addEventListener("click", function (e) {
@@ -943,12 +1297,12 @@
             });
           });
         });
-        
+
         // Contact form reset
         document
           .getElementById("contactForm")
           .addEventListener("submit", function (e) {
-            e.preventDefault(); 
+            e.preventDefault();
 
             const form = this;
             const data = new FormData(form);
@@ -962,7 +1316,7 @@
                 if (response.ok) {
                   alert("Thanks for your message!");
 
-                  form.reset(); 
+                  form.reset();
 
                   // Umami tracking (optional)
                   if (window.umami) {
@@ -985,32 +1339,3 @@
     </script>
   </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
