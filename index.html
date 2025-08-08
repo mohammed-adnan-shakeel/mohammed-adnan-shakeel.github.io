@@ -88,7 +88,29 @@
 
     <link rel="preload" as="image" href="assets/Profile.webp" />
 
-    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      body {
+        font-family: Inter, sans-serif;
+        margin: 0;
+      }
+      header {
+        background: #fff;
+        position: fixed;
+        width: 100%;
+      }
+      .profile {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+      }
+    </style>
+    <link
+      rel="preload"
+      href="/css/style.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="/css/style.css" /></noscript>
 
     <!-- Umami Analytics -->
     <script
@@ -885,6 +907,7 @@
     </script>
   </body>
 </html>
+
 
 
 
