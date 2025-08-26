@@ -659,6 +659,48 @@
         color: var(--gray);
       }
 
+      .scroll-top-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+      }
+
+      .scroll-top-btn.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .scroll-top-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      }
+
+      .scroll-top-btn i {
+        font-size: 24px;
+        transition: transform 0.3s ease;
+      }
+
+      .scroll-top-btn:hover i {
+        transform: translateY(-3px);
+      }
+
       /* Base Styles */
 
       .profile-image {
@@ -786,12 +828,11 @@
           grid-template-columns: 1fr;
         }
 
-        .contact-form {
-          order: 1;
-        }
-
-        .contact-info {
-          order: 2;
+        .scroll-top-btn {
+          bottom: 20px;
+          right: 20px;
+          width: 50px;
+          height: 50px;
         }
       }
 
@@ -1293,6 +1334,10 @@
       </div>
     </footer>
 
+    <div class="scroll-top-btn" id="scrollTopBtn">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+    
     <script
       src="https://platform.linkedin.com/badges/js/profile.js"
       async
@@ -1384,10 +1429,32 @@
                 alert("Oops! There was a problem submitting your form.");
               });
           });
+
+        // Get the button and home section
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+        const homeSection = document.getElementById("home");
+
+        // Show button when scrolled past home section
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > homeSection.offsetHeight) {
+            scrollTopBtn.classList.add("show");
+          } else {
+            scrollTopBtn.classList.remove("show");
+          }
+        });
+
+        // Scroll to home when clicked
+        scrollTopBtn.addEventListener("click", () => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
       });
     </script>
   </body>
 </html>
+
 
 
 
