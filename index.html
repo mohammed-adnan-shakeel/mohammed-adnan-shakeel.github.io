@@ -149,6 +149,25 @@
         flex-wrap: wrap;
       }
 
+      .w-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .w-links a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: var(--primary);
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .w-links a:hover {
+        color: var(--primary-dark);
+      }
+
       /* Header & Navigation */
       header {
         background-color: var(--lighter);
@@ -468,25 +487,6 @@
         padding: 0.3rem 0.8rem;
         border-radius: 50px;
         font-size: 0.8rem;
-      }
-
-      .project-links {
-        display: flex;
-        gap: 1rem;
-      }
-
-      .project-links a {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        text-decoration: none;
-        color: var(--primary);
-        font-weight: 500;
-        transition: var(--transition);
-      }
-
-      .project-links a:hover {
-        color: var(--primary-dark);
       }
 
       /* Testimonials Section */
@@ -1061,11 +1061,16 @@
             <div class="resume-item">
               <h4>BE in Computer Science and Engineering</h4>
               <p class="date">2024 - 2027</p>
-              <p><a
+              <p>
+                <div class="w-links">
+                <a
                   href="https://pesce.ac.in/"
                 >
                   <i class="fas fa-external-link-alt"></i>
-                PES College of Engineering, Mandya.</a></p>
+                  PES College of Engineering, Mandya.
+                  </a>
+                </div>
+              </p>
               <p>CGPA: 6.31/10.0</p>
             </div>
             <div class="resume-item">
@@ -1453,6 +1458,7 @@
     </script>
   </body>
 </html>
+
 
 
 
