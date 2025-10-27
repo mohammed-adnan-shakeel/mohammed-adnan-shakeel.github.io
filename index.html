@@ -1194,15 +1194,16 @@
               </div>
             </div>
           </div>
-
-          <div class="text-center">
+          <div id="getResume" class="text-center">
             <a
               href="#"
               class="btn"
+              id="resume-download"
               data-umami-event="Resume Download"
               data-umami-event-resume="Download Resume"
-              >Download Full Resume</a
             >
+              Get Resume
+            </a>
           </div>
         </div>
       </div>
@@ -1528,6 +1529,15 @@
               });
           });
 
+        // Resume button functionality
+        const resumeBtn = document.getElementById("resume-download");
+        if (resumeBtn) {
+          resumeBtn.addEventListener("click", function (event) {
+            event.preventDefault();
+            alert("To request the full resume, please email adnanshakeel1911@outlook.com");
+          });
+        }
+        
         // Get the button and home section
         const scrollTopBtn = document.getElementById("scrollTopBtn");
         const homeSection = document.getElementById("home");
@@ -1552,6 +1562,7 @@
     </script>
   </body>
 </html>
+
 
 
 
