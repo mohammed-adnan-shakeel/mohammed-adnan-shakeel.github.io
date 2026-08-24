@@ -16,8 +16,8 @@ Welcome to the source code for my personal portfolio website — a curated showc
 ## 🎯 Features
 
 - Fully responsive layout across all devices
-- Clean navigation with sections for About, Projects, and Contact
-- Custom domain integration: [`mohammed-adnan-shakeel.dev`](https://mohammed-adnan-shakeel.dev)
+- Clean navigation with sections for About, Resume, Projects, Coding and Contact
+- domain integration: [`mohammed-adnan-shakeel.github.io`](https://mohammed-adnan-shakeel.github.io)
 - Eco-conscious messaging and minimalist design approach
 - Umami analytics script (non-invasive and cookie-free)
 
@@ -45,7 +45,7 @@ This site is deployed using **GitHub Pages**:
 
 ## 📫 Contact
 
-Feel free to explore the site and connect via the [Contact](https://mohammed-adnan-shakeel.github/#contact) section.
+Feel free to explore the site and connect via the [Contact](https://mohammed-adnan-shakeel.github.io/#contact) section.
 
 If you spot bugs or want to collaborate, open an issue or drop me a message!
 
@@ -57,4 +57,4 @@ This project is open-source under the [MIT License](LICENSE).
 
 ---
 
-Thanks for stopping by — let’s build a better web together 🌍
+Thanks — let’s build a better web together 🌍
